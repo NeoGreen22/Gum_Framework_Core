@@ -1,9 +1,11 @@
-gumCore = {}
-
+local gumCore = {}
 TriggerEvent("getCore",function(core)
-	gumCore = core
+    gumCore = core
 end)
+
+Inventory = exports.gum_inventory:gum_inventoryApi()
 gum = exports.gum_core:gumAPI()
+
 
 	
 Inventory = exports.gum_inventory:gum_inventoryApi()
