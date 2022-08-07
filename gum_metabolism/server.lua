@@ -1,13 +1,12 @@
-gumCore = {}
-
+local gumCore = {}
 TriggerEvent("getCore",function(core)
-	gumCore = core
+    gumCore = core
 end)
-gum = exports.gum_core:gumAPI()
 
-	
 Inventory = exports.gum_inventory:gum_inventoryApi()
 gum = exports.gum_core:gumAPI()
+
+
 local blockSpamItems = {}
 local metaDataCache = {}
 for a,b in pairs(Config.Metabolism) do
