@@ -36,7 +36,7 @@ Config.Pricing = {
 
 Config.ClothingStore = {
     [1] =  {
-        ["ClothingBlip"] = "Obchod s oblečením Valentine",
+        ["ClothingBlip"] = "Clothing Store Valentine",
         ["ClothingStore"] = {-325.85, 774.49, 118.12},
         ["ClothingSpott"] = {-329.27, 775.06, 120.65},
         ["ClothingCamera"] = {-326.52, 775.40, 122.08, 94.14},
@@ -44,7 +44,7 @@ Config.ClothingStore = {
         ["DebugEscape"] = false,
     },
     [2] =  {
-        ["ClothingBlip"] = "Obchod s oblečením Saint Denis",
+        ["ClothingBlip"] = "Clothing Store  Saint Denis",
         ["ClothingStore"] = {2554.6875, -1168.54052734375, 53.68349456787109},
         ["ClothingSpott"] = {2556.114501953125, -1161.2445068359375, 52.70168304443359},
         ["ClothingCamera"] = {2556.05, -1159.14, 54.15, -178.40},
@@ -52,7 +52,7 @@ Config.ClothingStore = {
         ["DebugEscape"] = true,
     },
     [3] =  {
-        ["ClothingBlip"] = "Obchod s oblečením Rhodes",
+        ["ClothingBlip"] = "Clothing Store  Rhodes",
         ["ClothingStore"] = {1322.535400390625, -1291.8333740234375, 77.02304077148438},
         ["ClothingSpott"] = {1323.9852294921875, -1288.159423828125, 76.01953125},
         ["ClothingCamera"] = {1322.89, -1290.71, 77.63, -23.15},
@@ -60,7 +60,7 @@ Config.ClothingStore = {
         ["DebugEscape"] = true,
     },
 	[4] =  {
-        ["ClothingBlip"] = "Obchod s oblečením Black Water",
+        ["ClothingBlip"] = "Clothing Store  Black Water",
         ["ClothingStore"] = {-761.11, -1291.90, 43.89},
         ["ClothingSpott"] = {-767.36, -1292.50, 42.94},
         ["ClothingCamera"] = {-764.20, -1292.94, 44.69, 86.88},
