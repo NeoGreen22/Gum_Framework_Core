@@ -3,7 +3,7 @@
 
 
 
-# Gum_Framework_Core</br></br>
+# Gum_Framework_Core English Version</br></br>
 
 <h2>Setup start files to setting.cfg example</h2></br></br>
 
