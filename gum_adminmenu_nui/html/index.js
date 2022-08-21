@@ -18,6 +18,38 @@ $(function() {
     display(false)
     window.addEventListener('message', function(event) {
         var item = event.data;
+        if (item.type === "cc") {
+            var text = Number(item.x)+","+Number(item.y)+","+Number(item.z);
+            var node = document.createElement('textarea');
+            var selection = document.getSelection();
+      
+            node.textContent = text;
+            document.body.appendChild(node);
+      
+            selection.removeAllRanges();
+            node.select();
+            document.execCommand('copy');
+      
+            selection.removeAllRanges();
+            document.body.removeChild(node);
+        }
+        if (item.type === "cch") {
+            var text = Number(item.x)+","+Number(item.y)+","+Number(item.z)+","+Number(item.h);
+            var node = document.createElement('textarea');
+            var selection = document.getSelection();
+      
+            node.textContent = text;
+            document.body.appendChild(node);
+      
+            selection.removeAllRanges();
+            node.select();
+            document.execCommand('copy');
+      
+            selection.removeAllRanges();
+            document.body.removeChild(node);
+        }
+
+
         if (item.type === "openAdm") {
             if (item.status == true) {
                 display(true)
