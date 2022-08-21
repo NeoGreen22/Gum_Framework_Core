@@ -324,10 +324,10 @@ function Has_Body_Loaded_Clothe(ped, type, hash_for_load, text)
     local timeout = 0
     while readyLoad == false do
         Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, hash_for_load, false, true, true)
-        Wait(100)
+        Wait(0)
         Citizen.InvokeNative(0x704C908E9C405136, ped)
         Citizen.InvokeNative(0xCC8CA3E88256E58F, ped, 0, 1, 1, 1, 0)
-        Wait(100)
+        Wait(0)
         readyLoad = Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, ped)
     end
     return true
