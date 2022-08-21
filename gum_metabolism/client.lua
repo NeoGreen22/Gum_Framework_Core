@@ -187,6 +187,9 @@ AddEventHandler("gum_metabolism:eatIt", function(itemData)
 	end
 	if itemData.innerCoreStamina ~= 0 then
 		local staminaNow = Citizen.InvokeNative(0x36731AC041289BB1, PlayerPedId(), 1) 
+        if staminaNow == false then
+            staminaNow = 0
+        end
 		local staminaAfter = tonumber(staminaNow+itemData.innerCoreStamina)
 		if (staminaAfter > 100) then
 			staminaAfter = 100
