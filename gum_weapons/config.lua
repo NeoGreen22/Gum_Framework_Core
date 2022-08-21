@@ -178,7 +178,7 @@ Config.weaponShops = {
         Pos = {x=-5508.35, y=-2964.26, z=-0.54},
         PosCus = {x=-5507.34, y=-2963.81, z=-0.59, h=60.0},
         blipId = 202506373,
-        showblip = true,
+        showBlip = true,
         Name = 'Weapon store',
         weapons = {
             ["Knifes"] = {
@@ -299,7 +299,7 @@ Config.weaponShops = {
         Pos = {x=-1752.0, y=-386.7, z=156.52},
         PosCus = {x=-1752.85, y=-386.86, z=156.48, h=60.0},
         blipId = 202506373,
-        showblip = true,
+        showBlip = true,
         Name = 'Weapon store',  
         Name = 'Weapon store',
         weapons = {
@@ -421,7 +421,7 @@ Config.weaponShops = {
         Pos = {x=-859.30, y=-1277.90, z=43.66},
         PosCus = {x=-859.31, y=-1278.66, z=43.50, h=6.0},
         blipId = 202506373,
-        showblip = true,
+        showBlip = true,
         Name = 'Weapon store',
         weapons = {
             ["Knifes"] = {
@@ -543,7 +543,7 @@ Config.weaponShops = {
             Pos = {x=1323.16, y=-1321.54, z=77.91},
             PosCus = {x=1323.07, y=-1322.34, z=77.95},
             blipId = 202506373,
-            showblip = true,
+            showBlip = true,
             Name = 'Weapon store',
             weapons = {
                 ["Knifes"] = {
@@ -665,7 +665,7 @@ Guarma = {
     Pos = {x=1322.02, y=-6980.69, z=61.97},
     PosCus = {x=1322.02, y=-6980.69, z=61.97, h=6.0},
     blipId = 202506373,
-    showblip = true,
+    showBlip = true,
     Name = 'Weapon store',
     weapons = {
         ["Knifes"] = {
@@ -787,7 +787,7 @@ Guarma = {
         Pos = {x=2715.39, y=-1285.63, z=49.80},
         PosCus = {x=2715.97, y=-1286.54, z=49.72},
         blipId = 202506373,
-        showblip = true,
+        showBlip = true,
         Name = 'Weapon store',
         weapons = {
             ["Knifes"] = {
