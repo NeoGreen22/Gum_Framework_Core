@@ -27,7 +27,6 @@ AddEventHandler('gum_character:check_character', function()
 	end
 end)
 
-
 RegisterServerEvent('gum_character:select_char')
 AddEventHandler('gum_character:select_char', function(charid, skin_table, outfit_table, coords, is_dead)
 	local _source = source
@@ -35,6 +34,10 @@ AddEventHandler('gum_character:select_char', function(charid, skin_table, outfit
 	TriggerClientEvent("gum_character:send_data_back", tonumber(_source), skin_table, outfit_table, coords, is_dead, true)
 	TriggerClientEvent("gum_clothes:send_outfit", tonumber(_source), skin_table, outfit_table)
 	User.setUsedCharacter(tonumber(_source), charid)
+end)
+Inventory.RegisterUsableItem("Hair_Pomade", function(data)
+	Inventory.subItem(data.source, "Hair_Pomade", 1)
+	TriggerClientEvent("gum_character:hairPomade", tonumber(data.source))
 end)
 
 RegisterServerEvent('gum_character:check_character2')

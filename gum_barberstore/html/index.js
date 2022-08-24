@@ -38,6 +38,7 @@ var slider90 = document.getElementById("SCARS_OPACITY");
 var slider91 = document.getElementById("SPOTS_TYPE");
 var slider92 = document.getElementById("SPOTS_OPACITY");
 var slider124 = document.getElementById("TEETHS");
+var slider125 = document.getElementById("HAIRSACCESSORIE");
 
 slider47.oninput = function() {send_change(this.value, this.id)}
 slider48.oninput = function() {send_change(this.value, this.id)}
@@ -79,6 +80,7 @@ slider90.oninput = function() {send_change(this.value, this.id)}
 slider91.oninput = function() {send_change(this.value, this.id)}
 slider92.oninput = function() {send_change(this.value, this.id)}
 slider124.oninput = function() {send_change(this.value, this.id)}
+slider125.oninput = function() {send_change(this.value, this.id)}
 
 $(function() {
     function display(bool) {
@@ -96,6 +98,7 @@ $(function() {
                 document.getElementById("HAIRS").max = item.maxhair;
                 document.getElementById("BEARDS").max = item.maxbeard;
                 document.getElementById("TEETHS").max = item.maxteeths;
+                document.getElementById("HAIRSACCESSORIE").max = item.maxhairacc;
             } else {
                 display(false)
             }
@@ -104,6 +107,7 @@ $(function() {
             if (item.status == true) {
                 display(true)
                 document.getElementById("HAIRS").value = item.hair;
+                document.getElementById("HAIRSACCESSORIE").value = item.hairaccessorie;
                 document.getElementById("BEARDS").value = item.beard;
                 document.getElementById("TEETHS").value = item.teeth;
                 document.getElementById("BEARDSSTABLE_OPACITY").value = item.BEARDSSTABLE_OPACITY*10;

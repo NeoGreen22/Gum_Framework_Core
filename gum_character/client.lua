@@ -198,6 +198,17 @@ RegisterNetEvent('gum_character:check_char')
 AddEventHandler('gum_character:check_char', function(have)
     have_character = have
 end)
+RegisterNetEvent('gum_character:hairPomade')
+AddEventHandler('gum_character:hairPomade', function()
+    if Citizen.InvokeNative(0xFB4891BD7578CDC1, PlayerPedId(), tonumber(0x9925C067)) then
+        TaskItemInteraction(PlayerPedId(), 0, GetHashKey("APPLY_POMADE_WITH_HAT"), 1, 0, -1082130432)
+    else
+        TaskItemInteraction(PlayerPedId(), 0, GetHashKey("APPLY_POMADE_WITH_NO_HAT"), 1, 0, -1082130432)
+    end
+    Wait(1500)
+    Citizen.InvokeNative(0x66B957AAC2EAAEAB, PlayerPedId(), Skin_Table["Hair"], GetHashKey("POMADE"), 0, true, 1)
+    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0)
+end)  
 
 RegisterNetEvent('gum_character:selected_char')
 AddEventHandler('gum_character:selected_char', function()
@@ -1911,12 +1922,11 @@ function Data_Character_Load(first, state)
     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["HeadType"],       true, true, false);
     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["LegsType"],       true, true, false);
     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["Eyes"],       true, true, false);
-    Citizen.Wait(0)
     if Skin_Table["Teeth"] ~= -1 then
         Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["Teeth"],       true, true, false);
     end
     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
-    Citizen.Wait(0)
+    Citizen.Wait(500)
     if Skin_Table["Beard"] ~= -1 then
         Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["Beard"],       true, true, false);
     end
@@ -2026,6 +2036,9 @@ function Data_Character_Load(first, state)
     Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), Skin_Table["Waist"], false, true, true);
     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
     reload_scars()
+    if Skin_Table["HairAccesorie"] ~= -1 and Skin_Table["HairAccesorie"] ~= nil then
+        Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["HairAccesorie"], true, true, false);
+    end
     if state == true then
         TriggerEvent("gum_inventory:reload_weap")
     end
@@ -2043,7 +2056,6 @@ function ReloadCloth()
     end
     SetPlayerModel(PlayerId(), model)
  
-    -- SetModelPed(PlayerPedId(), Skin_Table["sex"])
     Citizen.Wait(50)
     HasBodyComponentsLoaded(0xB3966C9, Skin_Table["Body"], "Body")
     HasBodyComponentsLoaded(0x378AD10C, Skin_Table["HeadType"], "Head")
@@ -2302,12 +2314,11 @@ function ReloadCloth()
     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["HeadType"],       true, true, false);
     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["LegsType"],       true, true, false);
     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["Eyes"],       true, true, false);
-    Citizen.Wait(0)
     if Skin_Table["Teeth"] ~= -1 then
         Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["Teeth"],       true, true, false);
     end
     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
-    Citizen.Wait(200)
+    Citizen.Wait(300)
     if Skin_Table["Beard"] ~= -1 then
         Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["Beard"],       true, true, false);
     end
@@ -2417,6 +2428,9 @@ function ReloadCloth()
     Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), Skin_Table["Waist"], false, true, true);
     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
     reload_scars()
+    if Skin_Table["HairAccesorie"] ~= -1 and Skin_Table["HairAccesorie"] ~= nil then
+        Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["HairAccesorie"], true, true, false);
+    end
 end
 
 function reload_scars()
