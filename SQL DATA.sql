@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `item` varchar(50) NOT NULL,
   `label` varchar(50) NOT NULL,
-  `limit` varchar(11) NOT NULL DEFAULT '1',
+  `limit` decimal(10,2)	NOT NULL DEFAULT '1',
   `can_remove` tinyint(1) NOT NULL DEFAULT 1,
   `type` varchar(50) DEFAULT NULL,
   `usable` tinyint(1) DEFAULT NULL,
