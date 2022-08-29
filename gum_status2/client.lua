@@ -5,6 +5,16 @@ local voiceOn = false
 
 local YouNeedMinimap = false
 
+local map = true
+local mapRadar = false
+local compat = true
+
+local hud1 = true
+
+TriggerEvent("gum_menu:getData",function(call)
+    MenuData = call
+end)
+
 RegisterCommand("hud", function(source, args, rawCommand)
 	if hud == true then
         hud = false
@@ -81,7 +91,7 @@ Citizen.CreateThread(function()
         end
         
         Citizen.InvokeNative(0x4CC5F2FC1332577F, GetHashKey("HUD_CTX_INFINITE_AMMO"))
-        if YouNeedMinimap == false then
+        if YouNeedMinimap == false and Config.Hudchange == false then
             Citizen.InvokeNative(0x4CC5F2FC1332577F, GetHashKey("HUD_CTX_SHARP_SHOOTER_EVENT"))
             Citizen.InvokeNative(0x4CC5F2FC1332577F ,GetHashKey("HUD_CTX_RESTING_BY_FIRE"))
             Citizen.InvokeNative(0x4CC5F2FC1332577F ,GetHashKey("HUD_CTX_INFO_CARD"))
@@ -122,4 +132,94 @@ Citizen.CreateThread(function()
         end
     end
 end)
+if Config.Hudchange then
+    RegisterCommand(Config.command, function()
+        Menu_Hud()    
+    end)
 
+    function Menu_Hud()
+        MenuData.CloseAll()
+        local elements = {}
+        if (compat == true) then
+            table.insert(elements, {label =Config.Language[1].text, value="compass", desc="True"})
+        else
+            table.insert(elements, {label =Config.Language[1].text, value="compass", desc="false"})
+        end
+
+        if (map == true) then
+            table.insert(elements, {label =Config.Language[5].text, value="minimap1", desc="False"})
+        else
+            table.insert(elements, {label =Config.Language[5].text, value="minimap1", desc="True"})
+        end
+        if (mapRadar == true) then
+            table.insert(elements, {label =Config.Language[2].text, value="mapRadar", desc="map"})
+        else
+            table.insert(elements, {label =Config.Language[2].text, value="mapRadar", desc="radar"})
+        end
+        if (hud == true) then
+            table.insert(elements, {label =Config.Language[3].text, value="true/falseHUD", desc="FALSE"})
+        else
+            table.insert(elements, {label =Config.Language[3].text, value="true/falseHUD", desc="rada"})
+        end
+
+        MenuData.Open('default', GetCurrentResourceName(), 'edrp_hud',
+        {
+            title    = Config.Language[50].text,
+            subtext    = Config.Language[51].text,
+            align    = 'top-right',
+            elements = elements,
+        },
+        function(data, menu)
+            if (data.current.value) == "compass" then
+                if compat == true then
+                    compass = true
+                    compat = false
+                    Menu_Hud()
+
+                else
+                    compass = false
+                    compat = true
+                    Menu_Hud()
+                end
+            end
+            if (data.current.value) == "minimap1" then 
+                if map == true then
+                    SetMinimapType(1)
+                    map = false
+                    Menu_Hud()
+
+                else
+                    SetMinimapType(0)
+                    map = true
+                    Menu_Hud()
+                end
+            end
+            if (data.current.value) == "mapRadar" then 
+                if map == true and mapRadar == true then
+                    SetMinimapType(3)
+                    mapRadar = false
+                    Menu_Hud()
+
+                else
+                    SetMinimapType(1)
+                    mapRadar = true
+                    Menu_Hud()
+                end
+            end
+            if (data.current.value) == "true/falseHUD" then
+                if hud == true then
+                hud2 = false
+                hud = false              
+                Menu_Hud()
+                else
+                    hud = true
+                    hud2 = true
+                    Menu_Hud()
+                end
+            end
+        end,
+        function(data, menu)
+            menu.close()
+        end)
+    end
+end
