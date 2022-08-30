@@ -56,6 +56,7 @@ local beardstabble_texture = 1
 local beardstabble_opacity = 10
 local beardstabble_color_1 = 0
 local TeethsTable = {}
+local HairAccTable = {}
 local Skin_Table_Backup = {}
 local pricing_table = {}
 local price = 0.0
@@ -89,6 +90,9 @@ AddEventHandler("gum:SelectedCharacter", function(charid)
                 if v.ped_type == "female" and v.is_multiplayer == true and v.category_hashname == "teeth" then
                     table.insert(TeethsTable, {hash = v.hash, category_hash = v.category_hash, sign = v.hash_dec_signed})
                 end
+                if v.ped_type == "female" and v.is_multiplayer == true and v.category_hashname == "hair_accessories" then
+                    table.insert(HairAccTable, {hash = v.hash, category_hash = v.category_hash, sign = v.hash_dec_signed})
+                end
             end
         end
 
@@ -98,6 +102,7 @@ AddEventHandler("gum:SelectedCharacter", function(charid)
             maxhair = #Hair_Table,
             maxbeard = #Beard_Table,
             maxteeths = #TeethsTable,
+            maxhairacc = #HairAccTable,
         })
     end)
 end)
@@ -168,7 +173,7 @@ Citizen.CreateThread(function()
                                             teeth = k
                                         end
                                     end
-        
+                                    
                                     Citizen.InvokeNative(0x322BFDEA666E2B0E, PlayerPedId(), v["BarberSpot"][1], v["BarberSpot"][2], v["BarberSpot"][3], 2.0, -1, 1, 1, 1, 1)
                                     Citizen.Wait(2000)
                                     SendNUIMessage({
@@ -282,6 +287,28 @@ RegisterNUICallback('send_change', function(data, cb)
                     Skin_Table["Hair"] = tonumber(v.hash)
                     Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(v.hash), true,true,true)
                     -- Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
+                end
+            end
+        end
+    elseif data.id == "HAIRSACCESSORIE" then
+        if tonumber(data.value) == 0 then
+            pricing_table["HairAccesorie"] = 0.0
+            Skin_Table["HairAccesorie"] = -1
+            Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x8E84A2AA, 0)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+        else
+            pricing_table["HairAccesorie"] = 0.5
+            for k,v in pairs(HairAccTable) do
+                if k == tonumber(data.value) then
+                    Skin_Table["HairAccesorie"] = tonumber(v.hash)
+                    Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(v.hash), true,true,true)
+                    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
+                    Citizen.Wait(100)
+                    Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x864B03AE, 0)
+                    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
+                    Citizen.Wait(100)
+                    Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(Skin_Table["Hair"]), true,true,true)
+                    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
                 end
             end
         end
