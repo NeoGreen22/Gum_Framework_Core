@@ -74,10 +74,8 @@ AddEventHandler('gumCore:canCarryItem', function(source, name, count, cb)
 		end
 	end
 	for k2,v2 in pairs(itm_table) do
-		for k,v in pairs(inv_table[tonumber(_source)]) do
-			if v2.item == name and v.item == name then
-				in_inventory_count[tonumber(_source)] = tonumber(count)*tonumber(v2.limit)
-			end
+		if v2.item == name then
+			in_inventory_count[tonumber(_source)] = tonumber(count)*tonumber(v2.limit)
 		end
 	end
 	if in_inventory[tonumber(_source)] == nil then
