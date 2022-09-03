@@ -630,6 +630,7 @@ AddEventHandler('gum_inventory:get_items', function()
 				end
 				exports.ghmattimysql:execute('SELECT id,identifier,name,ammo,used,comps,dirtlevel,conditionlevel FROM loadout WHERE charidentifier = @charidentifier AND identifier = @identifier' , {['charidentifier'] = charid, ['identifier'] = identifier}, function(result)
 					if result[1] ~= nil then
+						in_inventory_weapons[tonumber(_source)] = 0
 						weapon_table[tonumber(_source)]  = {}
 						for k,v in pairs(result) do
 							in_inventory_weapons[tonumber(_source)] = k
@@ -696,6 +697,7 @@ AddEventHandler('gum_inventory:get_items_sec', function(source)
 			end
 			exports.ghmattimysql:execute('SELECT id,identifier,name,ammo,used,comps,dirtlevel,conditionlevel FROM loadout WHERE charidentifier = @charidentifier AND identifier = @identifier' , {['charidentifier'] = charid, ['identifier'] = identifier}, function(result2)
 				if result2[1] ~= nil then
+					in_inventory_weapons[tonumber(_source)] = 0
 					weapon_table[tonumber(_source)] = {}
 					for k,v in pairs(result2) do
 						in_inventory_weapons[tonumber(_source)] = k
@@ -815,7 +817,7 @@ AddEventHandler('gumCore:subItem', function(source, name, count)
 			counter = k
 		end
 	end
-	if inv_table[tonumber(_source)][counter] ~= nil or count ~= nil then
+	if inv_table[tonumber(_source)][counter] ~= nil and count ~= nil then
 		if inv_table[tonumber(_source)][counter].count-tonumber(count) == 0 then
 			table.remove(inv_table[tonumber(_source)], tonumber(counter))
 		else
@@ -965,7 +967,7 @@ end)
 RegisterServerEvent('gumCore:getMetadataValue')
 AddEventHandler('gumCore:getMetadataValue', function(source, item, data, cb)
 	local _source = source
-	local metaData
+	local metaData = {}
 	for k,v in pairs(inv_table[tonumber(_source)]) do
 		if tonumber(item) == tonumber(v.itemId) then
 			metaData = v.metaData[data]
@@ -1249,6 +1251,7 @@ AddEventHandler('gumCore:giveWeapon', function(source, weaponid, target)
 	local charid = Character.charIdentifier
 	exports.ghmattimysql:execute('SELECT id,identifier,name,ammo,used,comps,dirtlevel,conditionlevel FROM loadout WHERE charidentifier = @charidentifier AND identifier = @identifier' , {['charidentifier'] = charid, ['identifier'] = identifier}, function(result)
 		if result[1] ~= nil then
+			in_inventory_weapons[tonumber(_source)] = 0
 			for k,v in pairs(result) do
 				in_inventory_weapons[tonumber(_source)] = k
 			end
@@ -1396,6 +1399,7 @@ AddEventHandler('gum_inventory:getWeaponTable', function()
 	exports.ghmattimysql:execute('SELECT id,identifier,name,ammo,used,comps,dirtlevel,conditionlevel FROM loadout WHERE charidentifier = @charidentifier AND identifier = @identifier' , {['charidentifier'] = charid, ['identifier'] = identifier}, function(result)
 		if result[1] ~= nil then
 			weapon_table[tonumber(_source)]  = {}
+			in_inventory_weapons[tonumber(_source)] = 0
 			for k,v in pairs(result) do
 				in_inventory_weapons[tonumber(_source)] = k
 				for k2,v2 in pairs(wpn_table) do
