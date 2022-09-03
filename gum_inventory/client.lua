@@ -409,10 +409,10 @@ end)
 function saveWeaponAmmo()
 	local saveWhat = {}
 	local saveItNow = false
-	local _1, rightHand = GetCurrentPedWeapon(PlayerPedId(), true, 0, true)--Pravá
-	local _2, leftHand = GetCurrentPedWeapon(PlayerPedId(), true, 1, true)--Levá
-	local _3, rightHolster = GetCurrentPedWeapon(PlayerPedId(), true, 2, true)--Pravá
-	local _4, leftHolster = GetCurrentPedWeapon(PlayerPedId(), true, 3, true)--Levá
+	local _1, rightHand = GetCurrentPedWeapon(PlayerPedId(), true, 0, true)
+	local _2, leftHand = GetCurrentPedWeapon(PlayerPedId(), true, 1, true)
+	local _3, rightHolster = GetCurrentPedWeapon(PlayerPedId(), true, 2, true)
+	local _4, leftHolster = GetCurrentPedWeapon(PlayerPedId(), true, 3, true)
 	local weaponCounter = 0
 	local firstWeapon = 0
 	local secondWeapon = 0
@@ -526,6 +526,9 @@ function saveWeaponAmmo()
 						if string.match(v.name, "revolver") or string.match(v.name, "REVOLVER") then
 							-- if GetHashKey(weapon_first_used) == GetHashKey(v.name)  then
 								weaponId = v.id
+								if v.conditionlevel == nil then
+									v.conditionlevel = 0.0
+								end
 								if v.conditionlevel+0.01 <= 1.0 then
 									v.conditionlevel = condition_level[v.id]+0.01
 									condition_level[v.id] = v.conditionlevel
@@ -553,6 +556,9 @@ function saveWeaponAmmo()
 						if string.match(v.name, "revolver") or string.match(v.name, "REVOLVER") then
 							-- if GetHashKey(weapon_first_used) == GetHashKey(v.name) or GetHashKey(weapon_second_used) == GetHashKey(v.name)  then
 								weaponId = v.id
+								if v.conditionlevel == nil then
+									v.conditionlevel = 0.0
+								end
 								if v.conditionlevel+0.01 <= 1.0 then
 									v.conditionlevel = condition_level[v.id]+0.01
 									condition_level[v.id] = v.conditionlevel
@@ -591,6 +597,9 @@ function saveWeaponAmmo()
 						if string.match(v.name, "pistol") or string.match(v.name, "PISTOL") then
 							-- if GetHashKey(weapon_first_used) == GetHashKey(v.name) then
 								weaponId2 = v.id
+								if v.conditionlevel == nil then
+									v.conditionlevel = 0.0
+								end
 								if v.conditionlevel+0.01 <= 1.0 then
 									v.conditionlevel = condition_level[v.id]+0.01
 									condition_level[v.id] = v.conditionlevel
@@ -618,6 +627,9 @@ function saveWeaponAmmo()
 						if string.match(v.name, "pistol") or string.match(v.name, "PISTOL") then
 							-- if GetHashKey(weapon_first_used) == GetHashKey(v.name) or GetHashKey(weapon_second_used) == GetHashKey(v.name)  then
 								weaponId = v.id
+								if v.conditionlevel == nil then
+									v.conditionlevel = 0.0
+								end
 								if v.conditionlevel+0.01 <= 1.0 then
 									v.conditionlevel = condition_level[v.id]+0.01
 									condition_level[v.id] = v.conditionlevel
@@ -654,6 +666,9 @@ function saveWeaponAmmo()
 				if v.used == 1 then
 					if string.match(v.name, "REPEATER") or string.match(v.name, "repeater") then
 						weaponId = v.id
+						if v.conditionlevel == nil then
+							v.conditionlevel = 0.0
+						end
 						if v.conditionlevel+0.01 <= 1.0 then
 							v.conditionlevel = condition_level[v.id]+0.01
 							condition_level[v.id] = v.conditionlevel
@@ -687,6 +702,9 @@ function saveWeaponAmmo()
 				if v.used == 1 then
 					if string.match(v.name, "shotgun") or string.match(v.name, "SHOTGUN") then
 						weaponId = v.id
+						if v.conditionlevel == nil then
+							v.conditionlevel = 0.0
+						end
 						if v.conditionlevel+0.01 <= 1.0 then
 							v.conditionlevel = condition_level[v.id]+0.01
 							condition_level[v.id] = v.conditionlevel
@@ -720,6 +738,9 @@ function saveWeaponAmmo()
 				if v.used == 1 then
 					if string.match(v.name, "rifle") or string.match(v.name, "RIFLE") then
 						weaponId = v.id
+						if v.conditionlevel == nil then
+							v.conditionlevel = 0.0
+						end
 						if v.conditionlevel+0.01 <= 1.0 then
 							v.conditionlevel = condition_level[v.id]+0.01
 							condition_level[v.id] = v.conditionlevel
@@ -951,34 +972,38 @@ AddEventHandler('gum_inventory:cleaning_weapons', function()
     if model == 416676503 or model == -1101297303 then
         TriggerEvent("gum_inventory:CloseInv");
         Citizen.InvokeNative(0x72F52AA2D2B172CC,  PlayerPedId(), 1242464081, cloth_clean, GetHashKey("CLOTH"), GetHashKey("SHORTARM_CLEAN_ENTER"), 1, 0, -1.0)   
-		for key,value in pairs(weapon_table) do
+		local weapon_table2 = weapon_table
+		for key,value in pairs(weapon_table2) do
 			if value.used == 1 then
 				if weaponHash == GetHashKey(value.name)  then
-					TriggerServerEvent("gum_inventory:save_cleaning", value.name, condition_level)
 					Citizen.Wait(5000)
-					condition_level[value.id] = 0.0
-					condition_level[value.id] = 0.0
+					value.conditionlevel = 0.0
+					condition_level[tonumber(value.id)] = 0.0
 					Citizen.InvokeNative(0xA7A57E89E965D839, weaponEntityIndex, tonumber(condition_level[value.id]))
 					Citizen.InvokeNative(0x812CE61DEBCAB948, weaponEntityIndex, tonumber(condition_level[value.id]), 0)
+					TriggerServerEvent("gum_inventory:save_cleaning", value.name, 0.0)
 				end
 			end
 		end
+		weapon_table = weapon_table2
     else
-        TriggerEvent("gum_inventory:CloseInv");
+		local weapon_table2 = weapon_table
+		TriggerEvent("gum_inventory:CloseInv");
         Citizen.InvokeNative(0x72F52AA2D2B172CC,  PlayerPedId(), 1242464081, cloth_clean, GetHashKey("CLOTH"), GetHashKey("LONGARM_CLEAN_ENTER"), 1, 0, -1.0)   
-		for key,value in pairs(weapon_table) do
+		for key,value in pairs(weapon_table2) do
 			if value.used == 1 then
 				if weaponHash == GetHashKey(value.name)  then
-					TriggerServerEvent("gum_inventory:save_cleaning", value.name, condition_level)
 					Citizen.Wait(5000)
-					condition_level[value.id] = 0.0
-					condition_level[value.id] = 0.0
+					value.conditionlevel = 0.0
+					condition_level[tonumber(value.id)] = 0.0
 					Citizen.InvokeNative(0xA7A57E89E965D839, weaponEntityIndex, tonumber(condition_level[value.id]))
 					Citizen.InvokeNative(0x812CE61DEBCAB948, weaponEntityIndex, tonumber(condition_level[value.id]), 0)
+					TriggerServerEvent("gum_inventory:save_cleaning", value.name, 0.0)
 				end
 			end
 		end
-    end
+		weapon_table = weapon_table2
+	end
 end)
 
 RegisterNetEvent('gum_inventory:CloseInv')
@@ -1138,7 +1163,8 @@ function equip_weapon_login()
 		end
 	end
 	RemoveAllWeapons()
-	Citizen.Wait(500)
+	Citizen.Wait(2000)
+	ClearPedTasks(PlayerPedId())
 	for k,v in pairs(weapon_table) do
 		if v.used == 1 then
 			if Citizen.InvokeNative(0xD955FEE4B87AFA07, GetHashKey(v.name)) then
