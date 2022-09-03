@@ -547,26 +547,28 @@ function GiveItemNow(id_player, item, count,itemName){
 
 
 $(document).on("contextmenu", ".item-content", function(evt) {
-    if (!$(evt.target).hasClass("item-content")){
-        var clickedid = $(this).attr('id');
-        const { clientX: mouseX, clientY: mouseY } = evt;
-        if (evt.target.id == "weapon"){
-            clicked_id = wtable_inv[clickedid].id
-        } else if (clickedid == "money") {
-            clicked_id = "money"
-        } else if (clickedid == "gold") {
-            clicked_id = "gold"
-        } else {
-            clicked_name = table_inv[clickedid].item
-            clicked_id = table_inv[clickedid].itemId
-            clicked_meta = table_inv[clickedid].metaData
+    if (id_container == 0) {
+        if (!$(evt.target).hasClass("item-content")){
+            var clickedid = $(this).attr('id');
+            const { clientX: mouseX, clientY: mouseY } = evt;
+            if (evt.target.id == "weapon"){
+                clicked_id = wtable_inv[clickedid].id
+            } else if (clickedid == "money") {
+                clicked_id = "money"
+            } else if (clickedid == "gold") {
+                clicked_id = "gold"
+            } else {
+                clicked_name = table_inv[clickedid].item
+                clicked_id = table_inv[clickedid].itemId
+                clicked_meta = table_inv[clickedid].metaData
+            }
+
+            clicked_type = evt.target.id
+
+            contextMenu.style.top = `${mouseY}px`;
+            contextMenu.style.left = `${mouseX}px`;
+            contextMenu.classList.add("visible");
         }
-
-        clicked_type = evt.target.id
-
-        contextMenu.style.top = `${mouseY}px`;
-        contextMenu.style.left = `${mouseX}px`;
-        contextMenu.classList.add("visible");
     }
  })
 
