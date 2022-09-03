@@ -33,6 +33,7 @@ var slot4 = ""
 var slot5 = ""
 var clicked_name = ""
 var table_inv = {}
+var usableScroll = 0
 $(document).keydown(function(e) {
     var close = 27,close2 = 66, presse=69;
     switch (e.keyCode) {
@@ -42,6 +43,7 @@ $(document).keydown(function(e) {
             removeAllChildNodes(table_for_delete);
             changed= false
             id_container = 0
+            usableScroll = 0
         break;
         case close2:
             if (id_container == 0) {
@@ -50,6 +52,7 @@ $(document).keydown(function(e) {
                 removeAllChildNodes(table_for_delete);
                 changed= false
                 id_container = 0
+                usableScroll = 0
             }
 
         break;
@@ -57,11 +60,15 @@ $(document).keydown(function(e) {
             if (Number(id_for_use_item) !== -1) {
                 if (table_inv[id_for_use_item].usable !== undefined){
                     if (table_inv[id_for_use_item].usable == 1) {
+                        var myDiv = document.getElementById('tableData');
+                        usableScroll = myDiv.scrollTop
                         $.post('http://gum_inventory/use_item', JSON.stringify({ item: table_inv[id_for_use_item].item, id:table_inv[id_for_use_item].itemId }));
                     }
                 }
             }
             if (Number(id_for_use_weapon) !== -1) {
+                var myDiv = document.getElementById('tableData');
+                usableScroll = myDiv.scrollTop
                 $.post('http://gum_inventory/use_UseWeapon', JSON.stringify({ id: wtable_inv[id_for_use_weapon].id, model:wtable_inv[id_for_use_weapon].name }));
             }
         break;
@@ -244,6 +251,10 @@ function loadTableData(table_inv, money, wtable_inv, gold) {
                     transfer_to_storage()
                 }
     }); }, 5);
+    var myDiv = document.getElementById('tableData');
+    setTimeout(() => {  
+        myDiv.scrollTop = usableScroll
+    }, 10);
 }
 function show_hotbar(id){
     if (drag_to_normal == true){
