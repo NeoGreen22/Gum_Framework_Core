@@ -210,9 +210,9 @@ function loadTableData(table_inv, money, wtable_inv, gold) {
             }
         }
         if (durabilityValue !== 0) {
-            dataHtml += '<div class="item"><progress id="progress" max="100" value="'+durabilityValue+'"></progress><div id="'+ i +'" class="item-content" onMouseOver="change_name('+ i +')" ondblclick="UseItem('+i+')"><img src="images/items/' + table_inv[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">' + table_inv[i].count + '/'+Math.round(weight_item*100)/100+'kg</div></div></div>'
+            dataHtml += '<div class="item"><progress id="progress" max="100" value="'+durabilityValue+'"></progress><div id="'+ i +'" class="item-content" onMouseOver="change_name('+ i +')" ondblclick="UseItem('+i+')"><img src="images/items/' + table_inv[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">' + table_inv[i].count + '</br>'+Math.round(weight_item*100)/100+'kg</div></div></div>'
         } else {
-            dataHtml += '<div class="item"><div id="'+ i +'" class="item-content" onMouseOver="change_name('+ i +')" ondblclick="UseItem('+i+')"><img src="images/items/' + table_inv[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">' + table_inv[i].count + '/'+Math.round(weight_item*100)/100+'kg</div></div></div>'
+            dataHtml += '<div class="item"><div id="'+ i +'" class="item-content" onMouseOver="change_name('+ i +')" ondblclick="UseItem('+i+')"><img src="images/items/' + table_inv[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">' + table_inv[i].count + '</br>'+Math.round(weight_item*100)/100+'kg</div></div></div>'
         }
     }
     for (var i in wtable_inv) {
@@ -362,9 +362,9 @@ function loadstoragedata(strg_dt) {
                 }
             }
             if (durabilityValue !== 0) {
-                data_storage_Html += '<div class="item" data-content="'+strg_dt[i].label+'"><progress id="progress" max="100" value="'+durabilityValue+'"></progress><div id="'+ i +'" class="item-content" onMouseOver="change_name_other('+ i +')" ><img src="images/items/' + strg_dt[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">'+ strg_dt[i].count +'/'+ Math.round(weight_item * 100) / 100 + ' kg</div></div></div>'
+                data_storage_Html += '<div class="item" data-content="'+strg_dt[i].label+'"><progress id="progress" max="100" value="'+durabilityValue+'"></progress><div id="'+ i +'" class="item-content" onMouseOver="change_name_other('+ i +')" ><img src="images/items/' + strg_dt[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">'+ strg_dt[i].count +'</br>'+ Math.round(weight_item * 100) / 100 + ' kg</div></div></div>'
             } else {
-                data_storage_Html += '<div class="item" data-content="'+strg_dt[i].label+'"><div id="'+ i +'" class="item-content" onMouseOver="change_name_other('+ i +')" ><img src="images/items/' + strg_dt[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">'+ strg_dt[i].count +'/'+ Math.round(weight_item * 100) / 100 + ' kg</div></div></div>'
+                data_storage_Html += '<div class="item" data-content="'+strg_dt[i].label+'"><div id="'+ i +'" class="item-content" onMouseOver="change_name_other('+ i +')" ><img src="images/items/' + strg_dt[i].item + '.png" width="60" height="60"  id="item"><div class="bottom-right" id="count_'+i+'">'+ strg_dt[i].count +'</br>'+ Math.round(weight_item * 100) / 100 + ' kg</div></div></div>'
             }
         } 
     }
