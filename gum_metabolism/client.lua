@@ -126,6 +126,8 @@ AddEventHandler("gum_metabolism:eatIt", function(itemData)
             itemInHand = CreateObject(itemData.propName, pC.x, pC.y, pC.z, true, false, false)
             AttachEntityToEntity(itemInHand, PlayerPedId(), GetEntityBoneIndexByName(PlayerPedId(), "SKEL_L_Finger01"), 0.04, -0.03, -0.01, 0.0, 19.0, 46.0, true, true, false, true, 1, true)
         end
+	Citizen.InvokeNative(0xFCCC886EDE3C63EC, ped, 2, 1) -- Removes Weapon from animation
+	Citizen.Wait(0)
         playCustomAnim("mech_inventory@eating@multi_bite@sphere_d8-2_sandwich", "quick_left_hand", -1, 25)
         Citizen.Wait(2000)
         if propName ~= "" then
@@ -139,6 +141,7 @@ AddEventHandler("gum_metabolism:eatIt", function(itemData)
             itemInHand = CreateObject(itemData.propName, pC.x, pC.y, pC.z, true, false, false)
             AttachEntityToEntity(itemInHand, PlayerPedId(), GetEntityBoneIndexByName(PlayerPedId(), "PH_R_HAND"), 0.00, 0.00, 0.04, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
         end
+	Citizen.InvokeNative(0xFCCC886EDE3C63EC, ped, 2, 1) -- Removes Weapon from animation	
         Citizen.Wait(600)
         playCustomAnim("mech_inventory@drinking@bottle_cylinder_d1-3_h30-5_neck_a13_b2-5", "uncork", 500, 25)
         Citizen.Wait(500)
@@ -154,6 +157,8 @@ AddEventHandler("gum_metabolism:eatIt", function(itemData)
             itemInHand = CreateObject(itemData.propName, pC.x, pC.y, pC.z, true, false, false)
             AttachEntityToEntity(itemInHand, PlayerPedId(), GetEntityBoneIndexByName(PlayerPedId(), "SKEL_L_Finger01"), 0.04, -0.03, -0.01, 0.0, 19.0, 46.0, true, true, false, true, 1, true)
         end
+	Citizen.InvokeNative(0xFCCC886EDE3C63EC, ped, 2, 1) -- Removes Weapon from animation
+	Citizen.Wait(0)
         playCustomAnim("mech_pickup@plant@berries", "exit_eat", -1, 25)
         Citizen.Wait(1000)
         if propName ~= "" then
