@@ -1,3 +1,17 @@
+var inInput = false
+var inAnswer = false
+$(document).keydown(function(e) {
+    var pressenter=13;
+    switch (e.keyCode) {
+        case pressenter:
+            if (inInput) {
+                send_values()
+            } else if (inAnswer) {
+                yes_func()
+            }
+        break;
+    }
+});
 
 $(function () {
     function display_input(bool) {
@@ -20,18 +34,23 @@ $(function () {
     window.addEventListener('message', function(event) {
         if (event.data.type == "open_inputs"){
             if (event.data.status == true) {
+                inInput = true
                 display_input(true)
+                $("#text_input").focus();
                 set_input_info(event.data.title, event.data.subtext)
             } else {
                 display_input(false)  
+                inInput = false
             }
         }
         if (event.data.type == "open_answer"){
             if (event.data.status == true) {
                 display_answer(true)
+                $("#text_input").focus();
                 set_input_answer(event.data.title, event.data.first, event.data.second)
             } else {
                 display_answer(false)  
+                inAnswer = false
             }
         }
     })
@@ -56,19 +75,23 @@ function send_values() {
         $.post('http://gum_inputs/button_2', JSON.stringify({ text: document.getElementById("text_input").value }));
         document.getElementById("form_id").reset();
     }
+    inInput = false
 }
 
 function close_input() {
     document.getElementById("form_id").reset();
-  $.post('http://gum_inputs/button_1', JSON.stringify({ text: "close" }));
+    $.post('http://gum_inputs/button_1', JSON.stringify({ text: "close" }));
+    inInput = false
 }
 
 function yes_func() {
     document.getElementById("form_id").reset();
-  $.post('http://gum_inputs/yes', JSON.stringify({ text: "yes" }));
+    $.post('http://gum_inputs/yes', JSON.stringify({ text: "yes" }));
+    inAnswer = false
 }
 
 function no_func() {
     document.getElementById("form_id").reset();
-  $.post('http://gum_inputs/no', JSON.stringify({ text: "no" }));
+    $.post('http://gum_inputs/no', JSON.stringify({ text: "no" }));
+    inAnswer = false
 }
