@@ -36,9 +36,13 @@ end
 AddEventHandler('playerDropped', function (reason)
     local _source = source
     local User = gumCore.getUser(_source)
-    local Character = User.getUsedCharacter
-	local meta_table = {Thirst=metaDataCache[tonumber(_source)].thirst, Hunger=metaDataCache[tonumber(_source)].hunger}
-    Character.setMeta(tonumber(_source), meta_table)
+	if User ~= nil then
+		local Character = User.getUsedCharacter
+		if metaDataCache[tonumber(_source)] ~= nil then
+			local meta_table = {Thirst=metaDataCache[tonumber(_source)].thirst, Hunger=metaDataCache[tonumber(_source)].hunger}
+			Character.setMeta(tonumber(_source), meta_table)
+		end
+	end
 end)
 
 RegisterServerEvent('gum_metabolism:updateMeta')
