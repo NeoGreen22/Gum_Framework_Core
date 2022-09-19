@@ -752,6 +752,7 @@ end)
 
 RegisterNetEvent('gum_character:revive_player')
 AddEventHandler('gum_character:revive_player', function(id, where)
+    TriggerEvent("gum_reviveMeta:toHalf")
     if tonumber(where) == 0 then
         for k,v in pairs(Config.RespawnCoords) do
             local GetCoords = GetEntityCoords(PlayerPedId())
@@ -2039,6 +2040,9 @@ function Data_Character_Load(first, state)
     if Skin_Table["HairAccesorie"] ~= -1 and Skin_Table["HairAccesorie"] ~= nil then
         Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["HairAccesorie"], true, true, false);
     end
+    Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), Skin_Table["Scale"])
+    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
+    Citizen.Wait(0)
     if state == true then
         TriggerEvent("gum_inventory:reload_weap")
     end
@@ -2428,6 +2432,9 @@ function ReloadCloth()
     Citizen.InvokeNative(0x1902C4CFCC5BE57C, PlayerPedId(), Skin_Table["Waist"], false, true, true);
     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
     reload_scars()
+    Citizen.InvokeNative(0x25ACFC650B65C538, PlayerPedId(), Skin_Table["Scale"])
+    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, false);
+    Citizen.Wait(0)
     if Skin_Table["HairAccesorie"] ~= -1 and Skin_Table["HairAccesorie"] ~= nil then
         Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(),  Skin_Table["HairAccesorie"], true, true, false);
     end
