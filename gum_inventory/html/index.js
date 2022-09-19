@@ -34,8 +34,9 @@ var slot5 = ""
 var clicked_name = ""
 var table_inv = {}
 var usableScroll = 0
+var inInput = false
 $(document).keydown(function(e) {
-    var close = 27,close2 = 66, presse=69;
+    var close = 27,close2 = 66, presse=69, pressenter=13;
     switch (e.keyCode) {
         case close:
             $.post('http://gum_inventory/exit', JSON.stringify({id:id_container}));
@@ -44,6 +45,10 @@ $(document).keydown(function(e) {
             changed= false
             id_container = 0
             usableScroll = 0
+            allCount = 0
+            document.getElementById("input_type").value = "";
+            $("#input_data").hide();
+            inInput = false
         break;
         case close2:
             if (id_container == 0) {
@@ -53,9 +58,21 @@ $(document).keydown(function(e) {
                 changed= false
                 id_container = 0
                 usableScroll = 0
+                allCount = 0
+                document.getElementById("input_type").value = "";
+                $("#input_data").hide();
+                inInput = false
             }
-
         break;
+        case pressenter:
+            if (inInput) {
+                $.post('http://gum_inventory/transferAcceptItem', JSON.stringify({count:document.getElementById("input_type").value}));
+                allCount = 0
+                document.getElementById("input_type").value = "";
+                $("#input_data").hide();
+                inInput = false
+            }
+        break
         case presse:
             if (Number(id_for_use_item) !== -1) {
                 if (table_inv[id_for_use_item].usable !== undefined){
@@ -85,6 +102,7 @@ $(document).mousedown(function(e) {
     }
 });
 
+var allCount = 0
 $(function() {
     document.getElementById("header").innerHTML = config.language[29].text
     document.getElementById("header_container").innerHTML = config.language[2].text
@@ -102,6 +120,7 @@ $(function() {
         }
     }
 
+    $("#input_data").hide();
     display2(false)
     window.addEventListener('message', function(event) {
         var item = event.data;
@@ -184,7 +203,19 @@ $(function() {
         if (item.type === "weapon_desc_update") {
             change_active_weapon(item.data_info)
         }
-
+        if (item.type === "input_data") {
+            if (item.status === true) {
+                allCount = item.count
+                inInput = true
+                $("#input_data").show();
+                $("#input_type").focus();
+            } else {
+                inInput = false
+                $("#input_data").hide();
+                allCount = 0
+                document.getElementById("input_type").value = "";
+            }
+        }
     })
 
     $("#close").click(function() {
@@ -193,6 +224,38 @@ $(function() {
     })
 
 })
+
+function transferOneItem() {
+    document.getElementById("input_type").value = 1;
+    $.post('http://gum_inventory/transferOneItem', JSON.stringify({}));
+    transferAcceptItem()
+}
+
+function transferAllItem() {
+    document.getElementById("input_type").value = allCount;
+    $.post('http://gum_inventory/transferAllItem', JSON.stringify({}));
+    transferAcceptItem()
+}
+
+function showSkills() {
+    $.post('http://gum_inventory/showSkills', JSON.stringify({}));
+}
+
+function transferAcceptItem() {
+    $.post('http://gum_inventory/transferAcceptItem', JSON.stringify({count:document.getElementById("input_type").value}));
+    allCount = 0
+    document.getElementById("input_type").value = "";
+    $("#input_data").hide();
+    inInput = false
+}
+
+function transferLeaveItem() {
+    allCount = 0
+    document.getElementById("input_type").value = "";
+    $.post('http://gum_inventory/transferLeaveItem', JSON.stringify({}));
+    $("#input_data").hide();
+    inInput = false
+}
 
 function money_update(money){
     document.getElementById("count_money").innerHTML = ''+Math.round(money * 100)/100+' $';
@@ -241,16 +304,24 @@ function loadTableData(table_inv, money, wtable_inv, gold) {
               },
             }).on('send', data => onDragFinished(data))
             .on('dragStart', function(item) {
-                var myDiv = document.getElementById('tableData');
-                myDiv.scrollTop = 0;
-                dragged = true
-               })
-            .on('dragReleaseEnd', function() {
-                dragged = false
-                if (drag_to_other == true) {
-                    transfer_to_storage()
+                if (inInput == false) {
+                    var myDiv = document.getElementById('tableData');
+                    myDiv.scrollTop = 0;
+                    dragged = true
                 }
-    }); }, 5);
+            })
+            .on('dragReleaseEnd', function() {
+                if (inInput == false) {
+                    dragged = false
+                    if (drag_to_other == true) {
+                        transfer_to_storage()
+                    } else {
+                        if (id_container == 0) {
+                            transferToPlayer()
+                        }
+                    }
+                }
+    }); }, 1);
     var myDiv = document.getElementById('tableData');
     setTimeout(() => {  
         myDiv.scrollTop = usableScroll
@@ -321,7 +392,7 @@ function transfer_to_storage() {
     if (dragged_item_inv === 'money') {
         $.post('http://gum_inventory/transfer_to_storage', JSON.stringify({weapon:false, item: "money", count: moneysd, container_id:id_container, size:count_sinventory}));
     } else if (dragged_item_inv === 'gold') {
-            $.post('http://gum_inventory/transfer_to_storage', JSON.stringify({weapon:false, item: "gold", count: moneysd, container_id:id_container, size:count_sinventory}));
+            $.post('http://gum_inventory/transfer_to_storage', JSON.stringify({weapon:false, item: "gold", count: goldsd, container_id:id_container, size:count_sinventory}));
     } else {
         if (dragged_item_inv === undefined) {
             $.post('http://gum_inventory/transfer_to_storage', JSON.stringify({weapon:true, id: wtable_inv[dragged_witem_inv].id, item: wtable_inv[dragged_witem_inv].name, container_id:id_container, used:wtable_inv[dragged_witem_inv].used, size:count_sinventory}));
@@ -397,18 +468,22 @@ function loadstoragedata(strg_dt) {
             dragSort: false,
             }).on('send', data => onDragFinished(data))
             .on('dragStart', function() {
-                dragged = true
-                var myDiv = document.getElementById('expand_container');
-                myDiv.scrollTop = 0;
+                if (inInput == false) {
+                    dragged = true
+                    var myDiv = document.getElementById('expand_container');
+                    myDiv.scrollTop = 0;
+                }
                })
             .on('dragReleaseEnd', function() {
-                dragged = false
-                if (drag_to_normal == true) {
-                    transfer_from_storage()
+                if (inInput == false) {
+                    dragged = false
+                    if (drag_to_normal == true) {
+                        transfer_from_storage()
+                    }
                 }
      });
      filterTextInput()
-    }, 5);
+    }, 1);
 }
 
 var frs1 = document.getElementById('grid0');

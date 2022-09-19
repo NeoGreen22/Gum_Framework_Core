@@ -77,7 +77,14 @@
       <div class="content_button" onclick="GiveItem(document.getElementById('input_size1').value)" >Darovat <input type="text" value = "1" id="input_size1"></div>
       <div class="content_button" onclick="DropItem(document.getElementById('input_size2').value)" >Zahodit <input type="text" value = "1" id="input_size2"></div>
   </div>
-
+  <div id="input_data">
+    <div id="input_text">How much items you need transfer?</div>
+    <div id="button1" onclick="transferOneItem()"><center>1 item</center></div>
+    <div id="button2" onclick="transferAllItem()"><center>All</center></div>
+    <div id="button3" onclick="transferAcceptItem()"><center>Accept</center></div>
+    <div id="button4" onclick="transferLeaveItem()"><center>Leave</center></div>
+    <input type="inputType" id="input_type">
+  </div>
   <script>
   $('input').click(function(){return false;});
 

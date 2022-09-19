@@ -55,27 +55,142 @@
 }
 
 #container {
-   -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    display: block;
-    padding: 25px;
-    color: rgb(255, 255, 255);
+    -webkit-user-drag: none;
+     user-select: none;
+     -moz-user-select: none;
+     -webkit-user-select: none;
+     -ms-user-select: none;
+     display: block;
+     padding: 25px;
+     color: rgb(255, 255, 255);
+     position: absolute;
+     top: 50%;
+     left: 16%;
+     transform: translate(-50%, -50%);
+     width: 400px;
+     max-height: 401px;
+     height: 550px;
+     max-height: 581px;
+     background-image: url('images/background.png');
+     background-size: 100% 100%;
+     animation: fadeIn;
+     animation-duration: 0.3s;
+ }
+ #input_data {
+    -webkit-user-drag: none;
+     user-select: none;
+     -moz-user-select: none;
+     -webkit-user-select: none;
+     -ms-user-select: none;
+     display: block;
+     padding: 25px;
+     color: rgb(255, 255, 255);
+     position: absolute;
+     top: 50%;
+     left: 40%;
+     transform: translate(-50%, -50%);
+     width: 300px;
+     max-height: 301px;
+     height: 100px;
+     max-height: 101px;
+     background-image: url('images/background2.png');
+     background-size: 100% 100%;
+     animation: fadeIn;
+     animation-duration: 0.3s;
+ }
+ #input_text {
     position: absolute;
-    top: 50%;
-    left: 16%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    max-height: 401px;
-    height: 550px;
-    max-height: 581px;
-    background-image: url('images/background.png');
-    background-size: 100% 100%;
-    animation: fadeIn;
-    animation-duration: 0.3s;
+    left: 55px;
+    top: 10px;
+    color: rgb(223, 221, 221);
+    overflow: hidden;
+    outline: none;
 }
+ #input_type {
+    position: absolute;
+    left: 60px;
+    top: 40px;
+    color: rgb(223, 221, 221);
+    background: #4d4d4d;
+    width: 220px;
+    height: 20px;
+    overflow: hidden;
+    outline: none;
+}
+
+#button1 {
+    position: absolute;
+    bottom:50px;
+    left:60px;
+    background-image: url('images/button.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button1:hover {
+    position: absolute;
+    bottom:50px;
+    left:60px;
+    background-image: url('images/sbutton.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button2 {
+    position: absolute;
+    bottom:50px;
+    right:60px;
+    background-image: url('images/button.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button2:hover {
+    position: absolute;
+    bottom:50px;
+    right:60px;
+    background-image: url('images/sbutton.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button3 {
+    position: absolute;
+    bottom:20px;
+    left:60px;
+    background-image: url('images/button.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button3:hover {
+    position: absolute;
+    bottom:20px;
+    left:60px;
+    background-image: url('images/sbutton.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button4 {
+    position: absolute;
+    bottom:20px;
+    right:60px;
+    background-image: url('images/button.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+#button4:hover {
+    position: absolute;
+    bottom:20px;
+    right:60px;
+    background-image: url('images/sbutton.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 16px;
+}
+
 #slot0 {
     padding: 25px;
     color: rgb(255, 255, 255);
