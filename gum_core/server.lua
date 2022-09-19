@@ -482,15 +482,15 @@ AddEventHandler('gum:setJobGrade', function(source, charid, grade)
 end)
 
 RegisterServerEvent('gum:addMoney')
-AddEventHandler('gum:addMoney', function(source, type, much)
+AddEventHandler('gum:addMoney', function(source, curr, much)
 	local _source = source
-	if _source ~= nil and type ~= nil and much ~= nil then
+	if _source ~= nil and curr ~= nil and much ~= nil then
 		local User = gumCore.getUser(tonumber(_source))
 		local Character = User.getUsedCharacter
 		local Identifier = Character.identifier
 		local CharIdentifier = Character.charIdentifier
 		if much ~= nil then
-			if tonumber(type) == 0 then
+			if tonumber(curr) == 0 then
 				local Money = Character.money
 				Character.money = Character.money+much
 				if Config.Info_print then
@@ -501,7 +501,7 @@ AddEventHandler('gum:addMoney', function(source, type, much)
 				function (result)
 					TriggerEvent("gum_inventory:get_money_sec", tonumber(_source))
 				end)
-			elseif tonumber(type) == 1 then
+			elseif tonumber(curr) == 1 then
 				local Gold = Character.gold
 				Character.gold = Character.gold+much
 				if Config.Info_print then
@@ -512,7 +512,7 @@ AddEventHandler('gum:addMoney', function(source, type, much)
 				function (result)
 					TriggerEvent("gum_inventory:get_money_sec", tonumber(_source))
 				end)
-			elseif tonumber(type) == 2 then
+			elseif tonumber(curr) == 2 then
 				local Rol = Character.rol
 				Character.rol = Character.rol+much
 				if Config.Info_print then
@@ -558,7 +558,7 @@ function Character.addCurrency(source, type, much)
 				local Gold = Character.gold
 				Character.gold = Character.gold+much
 				if Config.Info_print then
-					gumCore.Debug("CharIdentifier : "..CharIdentifier.." Had "..Gold.."$, got "..much.."$ and has "..Character.gold.."$")
+					gumCore.Debug("CharIdentifier : "..CharIdentifier.." Had "..Gold.."G, got "..much.."G and has "..Character.gold.."G")
 				end
 
 				exports.ghmattimysql:execute("UPDATE characters SET gold = @gold WHERE identifier = @identifier AND charidentifier = @charidentifier", {['identifier'] = Identifier, ['charidentifier'] = CharIdentifier, ['gold'] = Character.gold},
@@ -569,7 +569,7 @@ function Character.addCurrency(source, type, much)
 				local Rol = Character.rol
 				Character.rol = Character.rol+much
 				if Config.Info_print then
-					gumCore.Debug("CharIdentifier : "..CharIdentifier.." Had "..Rol.."$, got "..much.."$ and has "..Character.rol.."$")
+					gumCore.Debug("CharIdentifier : "..CharIdentifier.." Had "..Rol.."R, got "..much.."R and has "..Character.rol.."R")
 				end
 				exports.ghmattimysql:execute("UPDATE characters SET rol = @rol WHERE identifier = @identifier AND charidentifier = @charidentifier", {['identifier'] = Identifier, ['charidentifier'] = CharIdentifier, ['rol'] = Character.rol},
 				function (result)
