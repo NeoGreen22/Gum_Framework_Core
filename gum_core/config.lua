@@ -6,6 +6,8 @@ Config.Info_print = true
 Config.Char_Count = 2
 
 Config.Eagle_Eye = true
+Config.HidePlayersCore = false
+Config.HideHorseCores = false
 Config.Whitelist = false
 
 Config.Language = {
