@@ -244,7 +244,7 @@ RegisterCommand("givegold", function(source, args)
         end
         if canOpen == true then
             local char = user.getUsedCharacter
-            char.addCurrency(args[1], 0, tonumber(args[2]))
+            char.addCurrency(args[1], 1, tonumber(args[2]))
         else
             gumCore.Error("You dont have permissions")
         end
