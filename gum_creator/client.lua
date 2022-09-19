@@ -631,6 +631,12 @@ RegisterNUICallback('send_change', function(data, cb)
             Clothe_Table["Hat"] = -1
             Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x9925C067, 0)
         else
+            Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x864B03AE, 0)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+            Citizen.Wait(0)
+            Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(Skin_Table["Hair"]), true,true,true)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+
             Clothe_Table["Hat"] = tonumber(HatsTable[tonumber(data.value)].hash)
             Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(HatsTable[tonumber(data.value)].hash), true,true,true)
         end
@@ -658,6 +664,12 @@ RegisterNUICallback('send_change', function(data, cb)
             Clothe_Table["Mask"] = -1
             Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x7505EF42, 0)
         else
+            Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x864B03AE, 0)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+            Citizen.Wait(0)
+            Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(Skin_Table["Hair"]), true,true,true)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+            
             Clothe_Table["Mask"] = tonumber(MaskTable[tonumber(data.value)].hash)
             Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(MaskTable[tonumber(data.value)].hash), true,true,true)
         end
