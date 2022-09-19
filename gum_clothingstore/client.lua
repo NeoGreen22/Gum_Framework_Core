@@ -302,7 +302,7 @@ Citizen.CreateThread(function()
             if GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v["ClothingStore"][1], v["ClothingStore"][2], v["ClothingStore"][3], false) < 15 then
                 if GetDistanceBetweenCoords(coords.x, coords.y, coords.z, v["ClothingStore"][1], v["ClothingStore"][2], v["ClothingStore"][3], false) < 1.5 then
                     Citizen.InvokeNative(0x2A32FAA57B937173, -1795314153, v["ClothingStore"][1], v["ClothingStore"][2], v["ClothingStore"][3] - 1.8, 0, 0, 0, 0, 0, 0, 1.5, 1.5, 0.5, 179, 166, 122, 155, 0, 0, 2, 0, 0, 0, 0)
-                    optimalize = 10
+                    optimalize = 5
                     if active == false then
                         local item_name = CreateVarString(10, 'LITERAL_STRING', Config.Language[3].text)
                         PromptSetActiveGroupThisFrame(buttons_prompt, item_name)
@@ -554,6 +554,7 @@ Citizen.CreateThread(function()
                     optimalize = 2000
                 end
                 if in_clothe == true then
+                    DrawLightWithRange(tonumber(string.format("%.2f", v["Light"][1])), tonumber(string.format("%.2f", v["Light"][2])), tonumber(string.format("%.2f", v["Light"][3])), 255, 255, 255, tonumber(string.format("%.2f", 2.5)), tonumber(string.format("%.2f", 30.0)))
                     price = 0.0
                     for k,v in pairs(pricing_table) do
                         price = price+v
@@ -562,7 +563,7 @@ Citizen.CreateThread(function()
                         local item_name = CreateVarString(10, 'LITERAL_STRING', ""..Config.Language[3].text..""..price.."$")
                         PromptSetActiveGroupThisFrame(buttons_prompt2, item_name)
                     end
-                    optimalize = 10
+                    optimalize = 5
                     StartCamClothing(v["ClothingCamera"][1], v["ClothingCamera"][2], z_position, v["ClothingCamera"][4], zoom)
                     SetEntityHeading(PlayerPedId(), heading)
                 end
@@ -1332,6 +1333,11 @@ RegisterNUICallback('send_change', function(data, cb)
         else
             pricing_table["Hat"] = Config.Pricing['Hat']
 
+            Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x864B03AE, 0)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+            Citizen.Wait(0)
+            Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(Skin_Table["Hair"]), true,true,true)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
             Clothe_Table["Hat"] = tonumber(HatsTable[tonumber(data.value)].hash)
             Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(HatsTable[tonumber(data.value)].hash), true,true,true)
         end
@@ -1367,7 +1373,11 @@ RegisterNUICallback('send_change', function(data, cb)
             Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x7505EF42, 0)
         else
             pricing_table["Mask"] = Config.Pricing['Mask']
-
+            Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x864B03AE, 0)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
+            Citizen.Wait(0)
+            Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(Skin_Table["Hair"]), true,true,true)
+            Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0);
             Clothe_Table["Mask"] = tonumber(MaskTable[tonumber(data.value)].hash)
             Citizen.InvokeNative(0xD3A7B003ED343FD9, PlayerPedId(), tonumber(MaskTable[tonumber(data.value)].hash), true,true,true)
         end
@@ -1461,6 +1471,7 @@ RegisterNUICallback('send_change', function(data, cb)
         if tonumber(data.value) == 0 then
             pricing_table["Cloak"] = 0.0
             Clothe_Table["Cloak"] = -1
+            Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0xAF14310B, 0)
             Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3C1A74CD, 0)
         else
             pricing_table["Cloak"] = Config.Pricing['Cloak']
@@ -1713,6 +1724,7 @@ end)
 
 function EndCam()
     ExecuteCommand(Config.Language[2].text)
+    lx,ly,lz = 0,0,0
     RenderScriptCams(false, true, 1000, true, false)
     DestroyCam(camera, false)
     camera = nil
